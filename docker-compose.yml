@@ -20,7 +20,7 @@ services:
             - ./nginx/default.conf:/etc/nginx/conf.d/default.conf  # Убедитесь, что это правильный путь
             - .:/var/www/html
         ports:
-            - "8000:80"
+            - "800:80"
         networks:
             - app-network
         depends_on:
