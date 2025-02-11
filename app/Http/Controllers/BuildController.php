@@ -5,28 +5,25 @@ namespace App\Http\Controllers;
 use App\Models\Build;
 use App\Models\Hero;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 
 class BuildController extends Controller
 {
     /**
-     * Получаем сборки для конкретного героя.
+     * Получить сборки для заданного героя по имени.
      *
-     * Этот метод получает все сборки, связанные с героем по его имени.
-     * Каждая сборка может содержать информацию о предметах, эмблемах и спеллах героя.
-     *
-     * @param string $heroName Имя героя, для которого необходимо получить сборки.
-     *
-     * @return JsonResponse JSON-ответ, содержащий сборки для указанного героя.*
+     * @param string $heroName Имя героя
+     * @return JsonResponse JSON с данными сборок
      */
     public function getBuilds(string $heroName): JsonResponse
     {
-        // Получаем героя по имени
         $hero = Hero::where('name', $heroName)->first();
+        if (!$hero) {
+            return response()->json(['error' => "Герой $heroName не найден."], 404);
+        }
 
-        // Получаем сборки для этого героя
         $builds = Build::where('hero_id', $hero->id)->get();
 
-        // Возвращаем данные о сборках
         return response()->json($builds);
     }
 }
