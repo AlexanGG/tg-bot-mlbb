@@ -13,7 +13,9 @@ class HeroSeeder extends Seeder
      */
     public function run(): void
     {
+        Hero::create(['name' => 'Layla', 'image' => 'Layla.png']);
         Hero::create(['name' => 'Julian', 'image' => 'julian.png']);
         Hero::create(['name' => 'Joy', 'image' => 'joy.png']);
+        Hero::create(['name' => 'Granger', 'image' => 'granger.png']);
     }
 }

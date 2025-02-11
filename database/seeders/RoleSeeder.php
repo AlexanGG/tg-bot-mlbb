@@ -16,7 +16,7 @@ class RoleSeeder extends Seeder
         Role::create(['name' => 'Roamer']);
         Role::create(['name' => 'Mid']);
         Role::create(['name' => 'Jungle']);
-        Role::create(['name' => 'AD Carry']);
-        Role::create(['name' => 'Exp Lane']);
+        Role::create(['name' => 'ADC']);
+        Role::create(['name' => 'Exp']);
     }
 }
