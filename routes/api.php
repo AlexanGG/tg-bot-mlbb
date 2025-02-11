@@ -19,5 +19,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('meta', [MetaController::class, 'getMeta']);
-Route::get('builds/{hero_id}', [BuildController::class, 'getBuilds']);
+Route::get('/meta/{roleName}', [MetaController::class, 'getMeta']);
+Route::get('/builds/{heroName}', [BuildController::class, 'getBuilds']);
