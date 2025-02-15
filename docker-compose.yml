@@ -1,6 +1,7 @@
 version: '3.8'
 
 services:
+<<<<<<< HEAD
     php:
         build:
             context: .
@@ -44,3 +45,43 @@ networks:
 
 volumes:
     postgres_data:
+=======
+    app:
+        build:
+            context: .
+            dockerfile: docker/Dockerfile
+        container_name: tg-bot-mlbb
+        restart: always
+        working_dir: /var/www
+        volumes:
+            - .:/var/www
+        depends_on:
+            - db
+            - redis
+        networks:
+            - bot-network
+
+    db:
+        image: postgres:15
+        container_name: postgres-db
+        restart: always
+        environment:
+            POSTGRES_DB: bot_db
+            POSTGRES_USER: bot_user
+            POSTGRES_PASSWORD: bot_password
+        ports:
+            - "5432:5432"
+        networks:
+            - bot-network
+
+    redis:
+        image: redis:latest
+        container_name: redis-cache
+        restart: always
+        networks:
+            - bot-network
+
+networks:
+    bot-network:
+        driver: bridge
+>>>>>>> 9d9ee22 (project changes + VM host from Yandex Cloud)
