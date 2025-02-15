@@ -1,11 +1,23 @@
-FROM php:8.2-cli
+# Используем образ PHP с поддержкой FPM
+FROM php:8.2-fpm
 
+# Устанавливаем необходимые зависимости и утилиты
+RUN apt-get update && apt-get install -y \
+    git \
+    zip \
+    unzip \
+    && docker-php-ext-install pdo pdo_mysql \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+
+# Устанавливаем рабочую директорию
 WORKDIR /var/www
 
-RUN apt-get update && apt-get install -y \
-    libpq-dev \
-    && docker-php-ext-install pdo pdo_pgsql
-
+# Копируем все файлы проекта в контейнер
 COPY . .
 
-CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=8000"]
+# Устанавливаем Composer
+RUN curl -sS https://getcomposer.org/installer | php && mv composer.phar /usr/local/bin/composer
+
+# Устанавливаем зависимости через Composer
+RUN composer install --no-dev --optimize-autoloader
